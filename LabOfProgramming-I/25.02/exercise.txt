@@ -1,0 +1,4 @@
+Develop a program that read n times integer numbers from the user, storing them in a dynamic vector allocated.
+Always that the vector is full, allocate a new vector with the double of the first's size and deallocate the previous one.
+When the user enters with the first non-positive integer, the program must print all the numbers no-negative and to
+finish the execution.
