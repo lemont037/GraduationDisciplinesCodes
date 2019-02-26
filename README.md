@@ -1,7 +1,7 @@
 Organization
 ============
 
-At this repositori I organized it by Disciplines and by Classes's days.
+At this repository I organized it by Disciplines and by Classes's days.
 So, for exemple, At the folder:
 
                                    //TechniquesProgramming-I/21.02
