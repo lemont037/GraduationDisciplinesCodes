@@ -1,0 +1,23 @@
+//------------------------------------------------
+System.arraycopy(Array Origem, posicaoInicial, Array Destino, posicaoInicial, N de elemntos a copiar)
+
+//------------------------------------------------
+elemento.length <- Tamanho de um array
+
+//------------------------------------------------
+Arrays sempre precisam ser declarados e instaciados
+
+char s[];
+s = new char[3]; <- Cadeia de 3 caracteres
+
+//------------------------------------------------
+class Ponto{
+ 
+}
+
+Metodo construtuor possui o mesmo nome da classe
+
+Ponto p1 = new Ponto();
+
+//------------------------------------------------
+DUVIDA SOBRE Classes Abstratas
