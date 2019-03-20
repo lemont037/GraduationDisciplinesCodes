@@ -1,4 +1,5 @@
 class Conjunto<T>{
+	//Teste
 	int private qttElem;
 	T private vector[];
 
