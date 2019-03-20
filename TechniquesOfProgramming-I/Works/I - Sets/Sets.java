@@ -1,40 +1,46 @@
 class Conjunto<T>{
-
-	int private qttElem;
-	T private vector[];
+	int qttElem;
+	T vector[];
 
 	public void create(int size){
 		vector = new T[size];
-		qtdElem = new int(0);
+		qttElem = 0;
 	}
 
-	public bool insert(T elem){
-		if(qttElem == vector.length())
-			if(!realocate(vector))
+	public boolean realocate(Conjunto set){
+		Conjunto newSet = new Conjunto();
+		newSet.create(set.vector.length*2);
+
+		System.arraycopy(set, 0, newSet, 0, set.qttElem);
+	}
+
+	public boolean insert(T elem){
+		if(qttElem == vector.length)
+			if(!realocate(this))
 				return false;		
 		vector[qttElem++] = elem;
 		return true;
 	}
 
-	public bool contains(T elem){
+	public boolean contains(T elem){
 		for(int i = 0; i < qttElem; i++){
 			if(vector[i] == elem)
-				return true
+				return true;
 		}
 		return false;
 	}
 
-	public isSubSet(T setA, T setB){
+	public boolean isSubSet(Conjunto setA, Conjunto setB){
 		/**Here is implicit that the analysis
 		 * will considerate if A is sub set
 		 * of B.*/
 
-		bool contains = new bool(false);
+		boolean contains = false;
 
 		for(int a = 0; a < setA.qttElem; a++){
 			for(int b = 0; b < setB.qttElem; b++){
 				if(setA.vector[a] == setB.vector[b]){
-					contains = new bool(true);
+					contains = true;
 					break;
 				}
 			}
@@ -44,7 +50,7 @@ class Conjunto<T>{
 		return true;
 	}
 
-	public Conjunto union(T setA, T setB){
+	public Conjunto union(Conjunto setA, Conjunto setB){
 		Conjunto setUnion = new Conjunto();
 		int size = setA.qttElem + setB.qttElem;
 		setUnion.create(size);
@@ -53,13 +59,13 @@ class Conjunto<T>{
 
 		System.arraycopy(setA,0,setUnion,0,setAQttElem);
 		for(int i = 0; i < setB.qttElem; i++)
-			if(!setUnion.contains(setB.vector[i])
-				setUnion.vector[setAQttElem++];
+			if(!setUnion.contains(setB.vector[i]))
+				setUnion.vector[setAQttElem++] = setB.vector[i];
 
 		return setUnion;
 	}
 
-	public Conjunto intersection(T setA, T setB){
+	public Conjunto intersection(Conjunto setA, Conjunto setB){
 		Conjunto setIntersec = new Conjunto();
 		int size = setA.qttElem + setB.qttElem;
 		setIntersec.create(size);
@@ -71,7 +77,7 @@ class Conjunto<T>{
 		return setIntersec;
 	}
 
-	public Conjunto difference(T setA, T setB){
+	public Conjunto difference(Conjunto setA, Conjunto setB){
 		Conjunto setDiferen = new Conjunto();
 		int size = setA.qttElem + setB.qttElem;
 		setDiferen.create(size);
@@ -86,45 +92,22 @@ class Conjunto<T>{
 		return setDiferen;
 	}
 	
-	public Conjunto product(T setA, T setB){
+	public Conjunto product(Conjunto setA, Conjunto setB){
 		Conjunto setProduct = new Conjunto();
-		int size = setA.vector.length() + setB.vector.length();
+		int size = setA.vector.length + setB.vector.length;
 		setProduct.create(size);
 
 		for(int a = 0; a < qttElem; a++)
-			for(int b = 0; b < qttElem; b++)
-				setProduct.insert([setA.vector[a],setB.vector[b]]);
+			for(int b = 0; b < qttElem; b++){
+				T[] tuple = {setA.vector[a],setB.vector[b]};
+				setProduct.insert(tuple);
+			}
 
 		return setProduct;
 	}
 
-	public Conjunto setPower(T setA){
-		//Not correct
-		Conjunto setPower = new Conjunto();
-		int size = Math.pow(2,setA.qttElem);
-	
-		int aux;
-
-		for(int subSetI = 1; subSetI <= qttElem; subSetI++){
-			T[] subSet;
-			if(subSetI != 1)
-				subSet = new T[subSetI];
-				aux = subSetI-1;
-			for(int elem = 0; elem < qttElem; elem++){
-				if(subSetI == 1)
-					subSet = new T[1];
-				T[elem] = setA.vector[elem];
-				if(subSetI == 1)
-					setPower.insert(subSet);
-				else if(elem-aux == 0;){
-					setPower.insert(subSet);
-					aux += subSetI;
-				}
-			}
-			if(subSetI != 1)
-				setPower.insert(subSet);
-		}
-		return setPower;
+	public Conjunto setPower(Conjunto setA){
+		//To be implemented
 	}
 }
 
