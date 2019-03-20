@@ -2,7 +2,7 @@ class Conjunto<T>{
 	//Teste
 	int private qttElem;
 	T private vector[];
-
+	//Test 2
 	public void create(int size){
 		vector = new T[size];
 		qtdElem = new int(0);
