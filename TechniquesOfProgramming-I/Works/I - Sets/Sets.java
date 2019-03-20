@@ -7,8 +7,8 @@ class Conjunto<T>{
 		qttElem = 0;
 	}
 
-	public boolean realocate(Conjunto set){
-		Conjunto newSet = new Conjunto();
+	public void realocate(Conjunto<T> set){
+		Conjunto<T> newSet = new Conjunto<T>();
 		newSet.create(set.vector.length*2);
 
 		System.arraycopy(set, 0, newSet, 0, set.qttElem);
@@ -16,8 +16,7 @@ class Conjunto<T>{
 
 	public boolean insert(T elem){
 		if(qttElem == vector.length)
-			if(!realocate(this))
-				return false;		
+			realocate(this);		
 		vector[qttElem++] = elem;
 		return true;
 	}
@@ -30,7 +29,7 @@ class Conjunto<T>{
 		return false;
 	}
 
-	public boolean isSubSet(Conjunto setA, Conjunto setB){
+	public boolean isSubSet(Conjunto<T> setA, Conjunto<T> setB){
 		/**Here is implicit that the analysis
 		 * will considerate if A is sub set
 		 * of B.*/
@@ -50,8 +49,8 @@ class Conjunto<T>{
 		return true;
 	}
 
-	public Conjunto union(Conjunto setA, Conjunto setB){
-		Conjunto setUnion = new Conjunto();
+	public Conjunto<T> union(Conjunto<T> setA, Conjunto<T> setB){
+		Conjunto<T> setUnion = new Conjunto<T>();
 		int size = setA.qttElem + setB.qttElem;
 		setUnion.create(size);
 		
@@ -65,8 +64,8 @@ class Conjunto<T>{
 		return setUnion;
 	}
 
-	public Conjunto intersection(Conjunto setA, Conjunto setB){
-		Conjunto setIntersec = new Conjunto();
+	public Conjunto<T> intersection(Conjunto<T> setA, Conjunto<T> setB){
+		Conjunto<T> setIntersec = new Conjunto<T>();
 		int size = setA.qttElem + setB.qttElem;
 		setIntersec.create(size);
 
@@ -77,8 +76,8 @@ class Conjunto<T>{
 		return setIntersec;
 	}
 
-	public Conjunto difference(Conjunto setA, Conjunto setB){
-		Conjunto setDiferen = new Conjunto();
+	public Conjunto<T> difference(Conjunto<T> setA, Conjunto<T> setB){
+		Conjunto<T> setDiferen = new Conjunto<T>();
 		int size = setA.qttElem + setB.qttElem;
 		setDiferen.create(size);
 
@@ -92,8 +91,8 @@ class Conjunto<T>{
 		return setDiferen;
 	}
 	
-	public Conjunto product(Conjunto setA, Conjunto setB){
-		Conjunto setProduct = new Conjunto();
+	public Conjunto<T> product(Conjunto<T> setA, Conjunto<T> setB){
+		Conjunto<T> setProduct = new Conjunto<T>();
 		int size = setA.vector.length + setB.vector.length;
 		setProduct.create(size);
 
@@ -106,7 +105,7 @@ class Conjunto<T>{
 		return setProduct;
 	}
 
-	public Conjunto setPower(Conjunto setA){
+	public void setPower(Conjunto<T> setA){
 		//To be implemented
 	}
 }
