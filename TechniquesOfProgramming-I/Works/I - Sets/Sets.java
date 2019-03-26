@@ -1,27 +1,31 @@
 class Conjunto<T>{
 	int qttElem;
-	T vector[];
+	Object vector[];
+
+	public void create(){
+		create(1);
+	}
 
 	public void create(int size){
-		vector = new T[size];
+		vector = new Object[size];
 		qttElem = 0;
 	}
 
-	public void realocate(Conjunto<T> set){
-		Conjunto<T> newSet = new Conjunto<T>();
-		newSet.create(set.vector.length*2);
+	public void realocate(){
+		Object newVector[] = new Object[this.vector.length * 2];
 
-		System.arraycopy(set, 0, newSet, 0, set.qttElem);
+		System.arraycopy(this.vector, 0, newVector, 0, this.qttElem);
+		this.vector = newVector;
 	}
 
-	public boolean insert(T elem){
+	public void insert(Object elem){
 		if(qttElem == vector.length)
-			realocate(this);		
-		vector[qttElem++] = elem;
-		return true;
+			this.realocate();
+		if(!this.contains(elem))
+			vector[qttElem++] = elem;
 	}
 
-	public boolean contains(T elem){
+	public boolean contains(Object elem){
 		for(int i = 0; i < qttElem; i++){
 			if(vector[i] == elem)
 				return true;
@@ -29,16 +33,17 @@ class Conjunto<T>{
 		return false;
 	}
 
-	public boolean isSubSet(Conjunto<T> setA, Conjunto<T> setB){
+	public boolean isSubSet(Conjunto<T> setB){
 		/**Here is implicit that the analysis
 		 * will considerate if A is sub set
 		 * of B.*/
 
-		boolean contains = false;
+		boolean contains;
 
-		for(int a = 0; a < setA.qttElem; a++){
+		for(int a = 0; a < this.qttElem; a++){
+			contains = false;
 			for(int b = 0; b < setB.qttElem; b++){
-				if(setA.vector[a] == setB.vector[b]){
+				if(this.vector[a] == setB.vector[b]){
 					contains = true;
 					break;
 				}
@@ -49,64 +54,63 @@ class Conjunto<T>{
 		return true;
 	}
 
-	public Conjunto<T> union(Conjunto<T> setA, Conjunto<T> setB){
+	public Conjunto<T> union(Conjunto<T> setB){
 		Conjunto<T> setUnion = new Conjunto<T>();
-		int size = setA.qttElem + setB.qttElem;
-		setUnion.create(size);
+		setUnion.create(this.qttElem+setB.qttElem);
 		
-		int setAQttElem = setA.qttElem;
+		System.arraycopy(this.vector, 0, setUnion.vector, 0, this.qttElem);
+		setUnion.qttElem = this.qttElem;
 
-		System.arraycopy(setA,0,setUnion,0,setAQttElem);
 		for(int i = 0; i < setB.qttElem; i++)
-			if(!setUnion.contains(setB.vector[i]))
-				setUnion.vector[setAQttElem++] = setB.vector[i];
-
+			setUnion.insert(setB.vector[i]);
+		
 		return setUnion;
 	}
 
-	public Conjunto<T> intersection(Conjunto<T> setA, Conjunto<T> setB){
-		Conjunto<T> setIntersec = new Conjunto<T>();
-		int size = setA.qttElem + setB.qttElem;
-		setIntersec.create(size);
+	public Conjunto<T> intersection(Conjunto<T> setB){
+		Conjunto<T> setIntersect = new Conjunto<T>();
+		setIntersect.create();
 
-		for(int a = 0; a < setA.qttElem; a++)
-			if(setB.contains(setA.vector[a]))
-				setIntersec.insert(setA.vector[a]);
+		for(int i = 0; i < this.qttElem; i++)
+			if(setB.contains(this.vector[i]))
+				setIntersect.insert(this.vector[i]);
 		
-		return setIntersec;
+		return setIntersect;
 	}
 
-	public Conjunto<T> difference(Conjunto<T> setA, Conjunto<T> setB){
-		Conjunto<T> setDiferen = new Conjunto<T>();
-		int size = setA.qttElem + setB.qttElem;
-		setDiferen.create(size);
+	public Conjunto<T> difference(Conjunto<T> setB){
+		Conjunto<T> setDifference = new Conjunto<T>();
+		setDifference.create();
 
-		for(int a = 0; a < setA.qttElem; a++)
-			if(!setB.contains(setA.vector[a]))
-				setDiferen.insert(setA.vector[a]);
-		for(int b = 0; b < setB.qttElem; b++)
-			if(!setA.contains(setB.vector[b]))
-				setDiferen.insert(setB.vector[b]);
-	
-		return setDiferen;
+		for(int a = 0; a < this.qttElem; a++)
+			if(!setB.contains(this.vector[a]))
+				setDifference.insert(this.vector[a]);
+		
+		return setDifference;
 	}
 	
-	public Conjunto<T> product(Conjunto<T> setA, Conjunto<T> setB){
-		Conjunto<T> setProduct = new Conjunto<T>();
+	public void product(Conjunto<T> setA, Conjunto<T> setB){
 		int size = setA.vector.length + setB.vector.length;
-		setProduct.create(size);
+		this.create(size);
 
 		for(int a = 0; a < qttElem; a++)
 			for(int b = 0; b < qttElem; b++){
-				T[] tuple = {setA.vector[a],setB.vector[b]};
-				setProduct.insert(tuple);
+				this.insert(setA.vector[a]);
+				this.insert(setB.vector[b]);
 			}
-
-		return setProduct;
 	}
 
-	public void setPower(Conjunto<T> setA){
+	public void setPower(Conjunto<T> setA) {
 		//To be implemented
+	}
+
+	public void print(){
+		System.out.print("[");
+		for(int i = 0; i < qttElem; i++)
+			if(i+1 != qttElem)
+				System.out.print(vector[i]+", ");
+			else
+				System.out.print(vector[i]+"]\n");
 	}
 }
 
