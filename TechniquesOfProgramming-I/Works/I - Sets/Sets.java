@@ -1,4 +1,4 @@
-class Conjunto<T>{
+class Conjunto{
 	int qttElem;
 	Object vector[];
 
@@ -33,11 +33,10 @@ class Conjunto<T>{
 		return false;
 	}
 
-	public boolean isSubSet(Conjunto<T> setB){
+	public boolean isSubSet(Conjunto setB){
 		/**Here is implicit that the analysis
 		 * will considerate if A is sub set
 		 * of B.*/
-
 		boolean contains;
 
 		for(int a = 0; a < this.qttElem; a++){
@@ -54,8 +53,8 @@ class Conjunto<T>{
 		return true;
 	}
 
-	public Conjunto<T> union(Conjunto<T> setB){
-		Conjunto<T> setUnion = new Conjunto<T>();
+	public Conjunto union(Conjunto setB){
+		Conjunto setUnion = new Conjunto();
 		setUnion.create(this.qttElem+setB.qttElem);
 		
 		System.arraycopy(this.vector, 0, setUnion.vector, 0, this.qttElem);
@@ -67,8 +66,8 @@ class Conjunto<T>{
 		return setUnion;
 	}
 
-	public Conjunto<T> intersection(Conjunto<T> setB){
-		Conjunto<T> setIntersect = new Conjunto<T>();
+	public Conjunto intersection(Conjunto setB){
+		Conjunto setIntersect = new Conjunto();
 		setIntersect.create();
 
 		for(int i = 0; i < this.qttElem; i++)
@@ -78,8 +77,8 @@ class Conjunto<T>{
 		return setIntersect;
 	}
 
-	public Conjunto<T> difference(Conjunto<T> setB){
-		Conjunto<T> setDifference = new Conjunto<T>();
+	public Conjunto difference(Conjunto setB){
+		Conjunto setDifference = new Conjunto();
 		setDifference.create();
 
 		for(int a = 0; a < this.qttElem; a++)
@@ -89,28 +88,78 @@ class Conjunto<T>{
 		return setDifference;
 	}
 	
-	public void product(Conjunto<T> setA, Conjunto<T> setB){
-		int size = setA.vector.length + setB.vector.length;
-		this.create(size);
+	public Conjunto product(Conjunto setB){
+		Conjunto setProduct = new Conjunto();
+		int size = this.qttElem * setB.qttElem;
+		setProduct.create(size);
 
-		for(int a = 0; a < qttElem; a++)
-			for(int b = 0; b < qttElem; b++){
-				this.insert(setA.vector[a]);
-				this.insert(setB.vector[b]);
+		for(int a = 0; a < this.qttElem; a++)
+			for(int b = 0; b < setB.qttElem; b++){
+				Conjunto subSet = new Conjunto();
+				subSet.create(2);
+				subSet.insert(this.vector[a]);
+				subSet.insert(setB.vector[b]);
+				setProduct.insert(subSet);
 			}
+		return setProduct;
 	}
 
-	public void setPower(Conjunto<T> setA) {
-		//To be implemented
+	public Conjunto setPower() {
+		//Binary method
+		Conjunto setPower = new Conjunto();
+		setPower.create((int)Math.pow(2,this.qttElem));
+
+		for(int i = 0; i < Math.pow(2,this.qttElem); i++){
+			char binary[] = new char[this.qttElem];
+			char bin[] = Integer.toBinaryString(i).toCharArray();
+			
+			int pos = this.qttElem - bin.length;
+			int posAux = 0;
+			for(int index = 0; index < this.qttElem; index++){
+				if(index < pos)
+					binary[index] = '0';
+				else
+					binary[index] = bin[posAux++];
+			}
+
+			Conjunto subSet = new Conjunto();
+			subSet.create();
+			for(int j = 0; j < this.qttElem; j++){
+				if(binary[j] != '0')
+					subSet.insert(this.vector[j]);
+			}
+			setPower.insert(subSet);
+		}
+		return setPower;
 	}
 
-	public void print(){
+	public void sortSubSets(){
+		for(int i = 0; i < this.qttElem; i++){
+			//To be implemented
+		}
+	}
+
+	public void print(int isSub){
 		System.out.print("[");
-		for(int i = 0; i < qttElem; i++)
-			if(i+1 != qttElem)
-				System.out.print(vector[i]+", ");
-			else
-				System.out.print(vector[i]+"]\n");
+		if(this.qttElem == 0 && isSub == 1)
+			System.out.print("]");
+		for(int i = 0; i < qttElem; i++){
+			if(i+1 != qttElem){
+				if(vector[i] instanceof Conjunto){
+					Conjunto set = (Conjunto) vector[i];
+					set.print(1);
+				}else
+					System.out.print(vector[i]);
+				System.out.print((isSub == 0) ? ", " : ",");
+			}else{
+				if(vector[i] instanceof Conjunto){
+					Conjunto set = (Conjunto) vector[i];
+					set.print(1);
+				}else
+					System.out.print(vector[i]);
+					System.out.print((isSub == 0) ? "]\n" : "]");
+			}
+		}
 	}
 }
 
