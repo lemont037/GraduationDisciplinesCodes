@@ -5,42 +5,21 @@
 using namespace std;
 
 int main(){
-	int io = -1;
 
-	while(io != 0){
-		
-		
-		int size, uRange, lRange;
+		int size = 6;
+		int vector[] = {3,4,1,6,2,5};
 
-		cout << "Inform a size to the vector: ";
-		cin >> size;
-		
-		cout << endl
-			 << "Now, please, inform the set limiters(Upper and lower) for the range generator instance:" << endl
-			 << "Lower: ";
-		cin >> lRange;
-		cout << endl
-			 << "Upper:";
-		cin >> uRange;
+		//int* nVector = vector_copier<int>(vector, size);
 
-		cout << endl
-			 << "Inform a size to the vector: ";
-		cin >> size;
-		cout << endl;
-
-		vector<int> v;
-		v.instance_creator();
-
-		int* nVector = vector_copier<int>(v);
+		int* nVector = quicksortIndexes<int>(vector,size);
 
 		cout << "Original vector: ";
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < size; i++)
 			cout << *(vector+i) << " ";
 		cout << endl;
 
 		cout << "New vector: ";
-		for(int i = 0; i < 6; i++)
+		for(int i = 0; i < size; i++)
 			cout << *(nVector+i) << " ";
 		cout << endl;
-	} 
 }
