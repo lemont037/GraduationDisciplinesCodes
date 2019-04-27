@@ -9,6 +9,12 @@ public class Circulo extends Figura{
     }
 
     @Override
+    public void colorir(String cor) {
+        isColored = true;
+        color = cor;    
+    }
+
+    @Override
     public String toString(){
         return "Circulo";
     }

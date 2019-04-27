@@ -3,6 +3,8 @@ import java.util.Scanner;
 public abstract class Figura extends Ponto{
     protected int qttDots;
     protected Ponto[] dots;
+    protected boolean isColored = false;
+    protected String color;
 
     Scanner read = new Scanner(System.in);
 
