@@ -1,4 +1,5 @@
-#include <queue> 
+#include <queue>
+ 
 <template t>
 *t quicksort(t vector[]){
 	//Calculing the size
