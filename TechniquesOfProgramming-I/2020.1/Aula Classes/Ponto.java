@@ -11,4 +11,12 @@ class Ponto {
 		this.x = x;
 		this.y = y;
 	}
+
+	void mover(float da){
+		this.mover(da,da);
+	}
+	void mover(float dx, float dy){
+		x += dx;
+		y += dy;
+	}
 }
